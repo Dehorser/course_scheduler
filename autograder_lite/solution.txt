@@ -1,0 +1,3 @@
+{Course(program='CS', designation='2231'): CourseInfo(credits='3', terms=('Fall', 'Frosh'), prereqs=((('CS', '2201'),),)),
+ Course(program='CS', designation='3251'): CourseInfo(credits='3', terms=('Fall', 'Frosh'), prereqs=((('CS', '2201'),),)),
+ Course(program='CS', designation='statsprobability'): CourseInfo(credits='0', terms=('Fall', 'Frosh'), prereqs=((('MATH', '2810'), ('MATH', '2820'), ('MATH', '3640')),))}

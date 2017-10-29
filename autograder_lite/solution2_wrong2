@@ -1,0 +1,4 @@
+{Course(program='CS', designation='1101'): CourseInfo(credits='3', terms=('Fall', 'Frosh'), prereqs=()),
+ Course(program='CS', designation='2201'): CourseInfo(credits='3', terms=('Spring', 'Frosh'), prereqs=()),
+Course(program='CS', designation='2231'): CourseInfo(credits='3', terms=('Fall', 'Sophomore'), prereqs=()),
+Course(program='CS', designation='3251'): CourseInfo(credits='3', terms=('Fall', 'Sophomore'), prereqs=())}

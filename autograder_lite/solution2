@@ -1,0 +1,11 @@
+{Course(program='CS', designation='1101'): CourseInfo(credits='3', terms=('Fall', 'Frosh'), prereqs=()),
+ Course(program='CS', designation='2201'): CourseInfo(credits='3', terms=('Spring', 'Frosh'), prereqs=()),
+Course(program='CS', designation='2231'): CourseInfo(credits='3', terms=('Fall', 'Sophomore'), prereqs=()),
+Course(program='CS', designation='3251'): CourseInfo(credits='3', terms=('Fall', 'Sophomore'), prereqs=())}
+ Course(program='RUSS', designation='1101'): CourseInfo(credits='5', terms=('Fall', 'Frosh'), prereqs=()),
+ Course(program='RUSS', designation='1102'): CourseInfo(credits='5', terms=('Spring', 'Frosh'), prereqs=()),
+Course(program='RUSS', designation='2201'): CourseInfo(credits='4', terms=('Fall', 'Sophomore'), prereqs=()),
+ Course(program='SPAN', designation='1100'): CourseInfo(credits='5', terms=('Fall', 'Frosh'), prereqs=()),
+Course(program='SPAN', designation='1101'): CourseInfo(credits='5', terms=('Spring', 'Frosh'), prereqs=()),
+Course(program='SPAN', designation='1102'): CourseInfo(credits='5', terms=('Fall', 'Sophomore'), prereqs=()),
+Course(program='CS', designation='statsprobability'): CourseInfo(credits='0', terms=('Fall', 'Sophomore'), prereqs=())}

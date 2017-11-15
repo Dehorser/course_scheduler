@@ -43,8 +43,9 @@ def course_scheduler(course_descriptions, goal_conditions, initial_state):
     return ()
 
 
-# Applies an operator to a statte
+# Applies an operator to a state
 def apply_regression_operator(state, operator):
+    new_state = state
     if operator and operator.eff in state:
         new_state.remove(operator.eff)
         new_state.extend(operator.pre)

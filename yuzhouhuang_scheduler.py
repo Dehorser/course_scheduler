@@ -1,3 +1,22 @@
+# Yuzhou Huang
+#
+# IMPORTANT: I REWROTE course_dictionary.py before I realized that it would affect grading. Unfortunately, i realized my
+# mistake too late in the process and I would have to rewrite everything in yuzhouhuang_scheduler to compensate.
+#
+# The code uses a naive depth-first regression search to find a schedule that satisfies certain goal requirements,
+# given an arbitrary set of preconditions.
+#
+# The code stores a dictionary of all the courses and their information, and uses said dictionary to build a list of
+# possible operators. The code does not store a graph in data. Rather, to find the children of a given node, it applies
+# any operator with an effect that creates some or all of the current node state.
+#
+# I tested
+#   gs: CS1101 in:
+#   gs: CS2201 in: CS1101
+#   gs: CS3251 in:
+#   gs: CSmajor
+#   gs: 'CS', '2231' 'CS', '3251' 'CS', 'statsprobability' in: 'MATH' '2810' 'MATH' '2820' 'MATH' '3640'
+
 import re
 from collections import namedtuple
 from openpyxl import load_workbook
@@ -10,11 +29,13 @@ Term = namedtuple("Term", "year, semester")
 years = ['Frosh', 'Soph', 'Junior', 'Senior']
 
 
+# Top level, big bad guy
+# Eats garbage and shoots out a beautiful schedule
 def course_scheduler(course_descriptions, goal_conditions, initial_state):
     basic_plan = dict()
     operators = create_course_operators(course_descriptions)
-    blah_blah = get_operators(operators, goal_conditions)
 
+    blah_blah = get_operators(operators, goal_conditions)
     for op in blah_blah:
         if dfs(operators, goal_conditions, initial_state, op, basic_plan):
             return polish_plan(basic_plan, course_descriptions)
@@ -22,14 +43,15 @@ def course_scheduler(course_descriptions, goal_conditions, initial_state):
     return ()
 
 
+# Applies an operator to a statte
 def apply_regression_operator(state, operator):
-    new_state = state
     if operator and operator.eff in state:
         new_state.remove(operator.eff)
         new_state.extend(operator.pre)
     return new_state
 
 
+# Creates a dictionary -- modified to change some tuples into lists
 def create_course_dict():
     """
     Creates a dictionary containing course info.
@@ -81,7 +103,9 @@ def dfs(operators, prev_state, initial_state, operator, plan):
     plan[new_course] = new_course_info
 
     # If the state has the same content as the goal, we've done it
-    if set(new_state) == set(initial_state):
+    # For reasons of bad coding, we need to add the initial state to the new state
+
+    if set(new_state).union(initial_state) == set(initial_state):
         return True
     else:
         new_operators = get_operators(operators, new_state)
@@ -99,7 +123,7 @@ def dfs(operators, prev_state, initial_state, operator, plan):
                         if plan[key].terms == new_op.ScheduledTerm:
                             credit_count += plan[key].credits
                     if (new_op.ScheduledTerm.semester == 'Summer' and credit_count + new_credits <= 6) or (
-                            new_op.ScheduledTerm.semester != 'Summer' and credit_count + new_credits <= 21):
+                                    new_op.ScheduledTerm.semester != 'Summer' and credit_count + new_credits <= 21):
                         # if we find the goal, stop
                         if dfs(operators, new_state, initial_state, new_op, plan):
                             return True
@@ -110,10 +134,12 @@ def dfs(operators, prev_state, initial_state, operator, plan):
                     return True
 
         # If none of the children return true, we must backtrack
-        del plan[new_course]
+        if new_course in plan:
+            del plan[new_course]
         return False
 
 
+# Gets the operators that create some or all of a state
 def get_operators(operators, state):
     # Get each operator that could produce the state\
     output = []
@@ -123,6 +149,7 @@ def get_operators(operators, state):
     return output
 
 
+# i dunno
 def get_split_course(course):
     """
     Parses a course from programdesignation into the ('program, designation') form.
@@ -143,6 +170,7 @@ def none_split(val):
     return val.split(', ') if val else ()
 
 
+# Fills in semesters with too few credits
 def polish_plan(basic_plan, course_descriptions):
     # Stores the credit per semester
     credit_counter = dict();
@@ -173,6 +201,7 @@ def polish_plan(basic_plan, course_descriptions):
     return final_plan
 
 
+# determines whether an operator is valid
 def prereq_is_valid(operator, plan):
     # If a prereq appears in the same semester or after a course, the operation is invalid
     for p in operator.pre:
